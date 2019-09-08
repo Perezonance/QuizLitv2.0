@@ -8,15 +8,17 @@ public class Quiz {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="student_quiz_id", unique=true, nullable=false)
+	@Column(name="quiz_id", unique=true, nullable=false)
 	private int id;
 	
 	@ManyToOne
 	@JoinColumn(name="quiz_student_id")
 	private User user;
 	
+	@Column(name="quiz_right")
 	private int rightAns;
 	
+	@Column(name="quiz_wrong")
 	private int wrongAns;
 			
 }

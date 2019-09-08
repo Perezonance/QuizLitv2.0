@@ -8,10 +8,10 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/quizit</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">3.141592Map97</property>
-        <property name="hibernate.connection.pool_size">1</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.connection.pool_size">5</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <mapping class="entities.User"/>
+        <mapping class="beans.User"/>
+        <mapping class="beans.Quiz"/>
     </session-factory>
 </hibernate-configuration>

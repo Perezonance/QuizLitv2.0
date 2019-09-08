@@ -1,12 +1,19 @@
 package controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import beans.User;
+import service.LoginService;
 
 /**
  * Servlet implementation class LoginUserController
@@ -35,7 +42,7 @@ public class LoginUserController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
@@ -43,7 +50,33 @@ public class LoginUserController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		response.setContentType("text/html");
+		
+		PrintWriter out = response.getWriter();
+		
+		String email = request.getParameter("email");
+		String pass = request.getParameter("password");
+		
+		LoginService ls = new LoginService();
+
+		if(ls.authenticateUser(email, pass)) {
+			User user = ls.getUserByEmail(email);
+			if(ls.isUserAdmin(user)) {
+				HttpSession session = request.getSession();
+				session.setAttribute("LoggedIn", true);
+				session.setAttribute("User", user);
+				RequestDispatcher rd = request.getRequestDispatcher("/pages/AdminDashboard.jsp");
+			}else {
+				HttpSession session = request.getSession();
+				session.setAttribute("LoggedIn", true);
+				session.setAttribute("User", user);
+				RequestDispatcher rd = request.getRequestDispatcher("/pages/UserDashboard.jsp");
+			}
+		}else {
+			request.setAttribute("invalidLogin", true);
+			RequestDispatcher rd = request.getRequestDispatcher("/pages/LoginPage.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 }

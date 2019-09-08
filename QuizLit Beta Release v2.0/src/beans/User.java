@@ -34,7 +34,7 @@ public class User {
 	@Column(name="user_password2", nullable=true)
 	private String password2;
 	
-	@Column(name="user_login_attempt", nullable=false)
+	@Column(name="user_login_attempt", nullable=true)
 	private int loginAttempts;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")

@@ -9,11 +9,14 @@
 	</head>
 	<body>
 		<%
-			String invalidLogin = (String)request.getAttribute("invalidLogin");
-			if(invalidLogin != null){
-				if(invalidLogin.equals("true")){
+			try{
+				boolean invalidLogin = (boolean)request.getAttribute("invalidLogin");
+				if(invalidLogin){
 					out.print("<p>The email and password do not match our records.</p>");
 				}
+			} catch(Exception e){
+				System.out.println("InvalidLogin Attribute doesn't exist.");
+				e.printStackTrace();
 			}
 		%>
 		<div class="login-page">

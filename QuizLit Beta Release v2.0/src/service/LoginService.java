@@ -2,6 +2,7 @@ package service;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -12,13 +13,27 @@ import org.hibernate.criterion.Restrictions;
 import beans.User;
 import hibernate.util.HibernateUtility;
 
+
+
 public class LoginService {
+	
+	
+	public LoginService() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public boolean authenticateUser(String email, String password) {
 		User user = getUserByEmail(email);
-		if(user != null && user.getEmail().equalsIgnoreCase(email) && user.getPassword().equals(password)) 
-			return true;
-		else
-			return false;
+		boolean result  = false;
+		try {
+			if(user != null && user.getEmail().equalsIgnoreCase(email) && user.getPassword().equals(password)) 
+				result = true;
+		} catch (Exception e) {
+			System.out.println("LoginService.authenticateUser Failed: ");
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	public User getUserByEmail(String email) {
@@ -29,11 +44,21 @@ public class LoginService {
 		try {
 			tx = session.getTransaction();
 			tx.begin();
-			@SuppressWarnings("deprecation")
-			Criteria cr = session.createCriteria(User.class);
-			cr.add(Restrictions.eq("user_email", email));
+			
+			List<User> users = getUserList();
+			Iterator<User> iterator = users.iterator();
+			
+			while(iterator.hasNext()) {
+				User dbUser = iterator.next();
+				if(dbUser.getEmail().equals(email)) {
+					user = dbUser;
+					break;
+				}
+			}
+			
 			tx.commit();
 		} catch(Exception e) {
+			System.out.println("LoginService.getUserByEmail Failed: User not Found Matching that Email.");
 			if(tx != null) {
 				tx.rollback();
 			}
@@ -51,9 +76,10 @@ public class LoginService {
 		try {
 			tx = session.getTransaction();
 			tx.begin();
-			list = session.createQuery("FROM User").list();
+			list = session.createQuery("from User").list();
 			tx.commit();
 		} catch(Exception e) {
+			System.out.println("LoginService.getUserList Failed: ");
 			if(tx != null) {
 				tx.rollback();
 			}
@@ -62,5 +88,12 @@ public class LoginService {
 			session.close();
 		}
 		return list;
+	}
+	
+	public boolean isUserAdmin(User user) {
+		if(user.getRole().equals("admin"))
+			return true;
+		else
+			return false;
 	}
 }
