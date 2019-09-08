@@ -34,12 +34,13 @@ public class User {
 	@Column(name="user_password2", nullable=true)
 	private String password2;
 	
-	@Column(name="user_login_attempt", nullable=true)
+	@Column(name="user_login_attempt", nullable=false)
 	private int loginAttempts;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private Set<Quiz> quizzes;
 
+	//Getters and Setters
 	public int getId() {
 		return id;
 	}

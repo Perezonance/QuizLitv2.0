@@ -71,12 +71,13 @@ public class LoginService {
 	
 	public List<User> getUserList(){
 		List<User> list = new ArrayList<User>();
+		List dbUsers = null;
 		Session session = HibernateUtility.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.getTransaction();
 			tx.begin();
-			list = session.createQuery("from User").list();
+			dbUsers = session.createQuery("FROM User").list();
 			tx.commit();
 		} catch(Exception e) {
 			System.out.println("LoginService.getUserList Failed: ");
@@ -87,7 +88,7 @@ public class LoginService {
 		} finally {
 			session.close();
 		}
-		return list;
+		return dbUsers;
 	}
 	
 	public boolean isUserAdmin(User user) {

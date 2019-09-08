@@ -66,11 +66,13 @@ public class LoginUserController extends HttpServlet {
 				session.setAttribute("LoggedIn", true);
 				session.setAttribute("User", user);
 				RequestDispatcher rd = request.getRequestDispatcher("/pages/AdminDashboard.jsp");
+				rd.forward(request, response);
 			}else {
 				HttpSession session = request.getSession();
 				session.setAttribute("LoggedIn", true);
 				session.setAttribute("User", user);
 				RequestDispatcher rd = request.getRequestDispatcher("/pages/UserDashboard.jsp");
+				rd.forward(request, response);
 			}
 		}else {
 			request.setAttribute("invalidLogin", true);

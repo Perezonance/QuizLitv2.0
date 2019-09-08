@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>USer Dashboard</h1>
+	<h1>User Dashboard</h1>
 </body>
 </html>
