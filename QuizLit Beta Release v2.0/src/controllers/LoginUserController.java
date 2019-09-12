@@ -65,18 +65,18 @@ public class LoginUserController extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("LoggedIn", true);
 				session.setAttribute("User", user);
-				RequestDispatcher rd = request.getRequestDispatcher("/pages/AdminDashboard.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("AdminDashboard.jsp");
 				rd.forward(request, response);
 			}else {
 				HttpSession session = request.getSession();
 				session.setAttribute("LoggedIn", true);
 				session.setAttribute("User", user);
-				RequestDispatcher rd = request.getRequestDispatcher("/pages/UserDashboard.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("UserDashboard.jsp");
 				rd.forward(request, response);
 			}
 		}else {
 			request.setAttribute("invalidLogin", true);
-			RequestDispatcher rd = request.getRequestDispatcher("/pages/LoginPage.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("LoginPage.jsp");
 			rd.forward(request, response);
 		}
 	}

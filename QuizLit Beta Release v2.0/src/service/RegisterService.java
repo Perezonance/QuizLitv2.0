@@ -36,9 +36,10 @@ public class RegisterService {
 			if(tx != null) {
 				tx.rollback();
 			}
-			System.err.println("");
+			System.err.println("RegisterService.registerUser Failed: ");
 			e.printStackTrace();
 		} finally {
+			tx.commit();
 			session.close();
 		}
 	}
