@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Categories;
+import beans.Category;
 import service.CategoryService;
 
 /**
@@ -64,7 +64,7 @@ public class CategoryTableController extends HttpServlet {
 		response.setContentType("text/html");
 		
 		CategoryService cs = new CategoryService();
-		List<Categories> catList = cs.getCategoryList();
+		List<Category> catList = cs.getCategoryList();
 		Iterator it = catList.iterator();
 		
 		PrintWriter out = response.getWriter();
@@ -74,13 +74,13 @@ public class CategoryTableController extends HttpServlet {
 				out.println("<tr>");
 					out.println("<th>Quiz Category</th>");
 					out.println("<th>Description</th>");
-					out.println("<th>Take Quiz</th>");
+					out.println("<th>Take New Quiz</th>");
 				out.println("</tr>");
 			out.println("</thead>");
 			out.println("<tbody>");
 		try {
 			while(it.hasNext()) {
-				Categories cat = (Categories)it.next();
+				Category cat = (Category)it.next();
 				out.println("<tr>");
 				out.println("<td>" + cat.getName() + "</td>");
 				out.println("<td>" + cat.getDescription() + "</td>");

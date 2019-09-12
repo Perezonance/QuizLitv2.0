@@ -6,7 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import beans.Categories;
+import beans.Category;
 import beans.User;
 import hibernate.util.HibernateUtility;
 
@@ -16,14 +16,14 @@ public class CategoryService {
 		super();
 	}
 	
-	public List<Categories> getCategoryList() {
+	public List<Category> getCategoryList() {
 		List dbCategories = null;
 		Session session = HibernateUtility.openSession();
 		Transaction tx = null;
 		try {
 			tx = session.getTransaction();
 			tx.begin();
-			dbCategories = session.createQuery("FROM Categories").list();
+			dbCategories = session.createQuery("FROM Category").list();
 			tx.commit();
 		} catch(Exception e) {
 			System.out.println("LoginService.getUserList Failed: ");

@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/quizit</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/quiz_lit2.0</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">3.141592Map97</property>
         <property name="hibernate.connection.pool_size">5</property>
@@ -13,6 +13,8 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <mapping class="beans.User"/>
         <mapping class="beans.Quiz"/>
-        <mapping class="beans.Categories"/>
+        <mapping class="beans.Question"/>
+        <mapping class="beans.QuizStructure"/>
+        <mapping class="beans.Category"/>
     </session-factory>
 </hibernate-configuration>
