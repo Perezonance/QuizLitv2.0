@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,5 +22,7 @@ public class Quiz {
 	
 	@Column(name="quiz_wrong")
 	private int wrongAns;
+	
+	private List<Question> questions;
 			
 }
