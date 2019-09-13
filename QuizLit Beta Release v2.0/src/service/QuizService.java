@@ -38,6 +38,7 @@ public class QuizService {
 			if(!qBank.contains(tempBank.get(num)))
 				qBank.add(tempBank.get(num));
 		}
+		session.close();
 		return qBank;
 	}
 	
@@ -48,6 +49,10 @@ public class QuizService {
 		struct.setStructureCategory(category);
 		struct.setTime(10.0);
 		
-		
+	}
+	public void commitQuiz(Quiz quiz) {
+		Session session = (Session)HibernateUtility.openSession();
+		session.save(quiz);
+		session.close();
 	}
 }

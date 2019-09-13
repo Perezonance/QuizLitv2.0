@@ -10,11 +10,22 @@
 </head>
 <body>
     <%
-       	User user = (User)session.getAttribute("User");
-    	QuizStructure struct = (QuizStructure)session.getAttribute("Structure");
-    	String quizName = struct.getName();
-		
-      
+   		User user; 
+    	String quizName = "ERROR";
+    	int numQuestions = 0;
+    	double time = 0.0;
+       	try{
+       		user = (User)session.getAttribute("User");
+        	QuizStructure struct = (QuizStructure)session.getAttribute("Structure");
+        	
+        	
+        	quizName = struct.getName();
+    		numQuestions = struct.getQuestionCount();
+    		time = struct.getTime();
+       	}catch(Exception e){
+       		System.out.println("QuizLandingPage Loading Failed:");
+       		e.printStackTrace();
+       	}
     %>
 	
     <div class="login-form">
@@ -23,8 +34,8 @@
                 <h1><%=quizName%> Quiz</h1>
                 
                 <h3>Instructions</h3>
-                <p align="left">Total Questions: 10 Questions</p>
-                <p align="left">Time Alloted: 10 Minutes</p>
+                <p align="left">Total Questions: <%=numQuestions %> Questions</p>
+                <p align="left">Time Alloted: <%=time %> Minutes</p>
                 <p align="left">Total Score will be displayed once you finish
                     the Quiz</p>
                  <p align="left">You cannot go back to a previously answered question</p>

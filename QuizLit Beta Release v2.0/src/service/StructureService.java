@@ -39,4 +39,15 @@ public class StructureService {
 		}
 		return structure;
 	}
+	public QuizStructure getStructureFromCode(String code) {
+		QuizStructure structure = null;
+		List<QuizStructure> structs = getStructureList();
+		for (QuizStructure s : structs) {
+			if (s.getAccessCode().equalsIgnoreCase(code)) {
+				structure = s;
+			}
+				
+		}
+		return structure;
+	}
 }
