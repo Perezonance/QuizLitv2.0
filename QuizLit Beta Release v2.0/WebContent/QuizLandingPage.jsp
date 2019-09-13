@@ -1,4 +1,4 @@
-<%@page import="beans.Category" import="beans.User" import="java.sql.ResultSet"%>
+<%@page import="beans.Category" import="beans.User" import="beans.QuizStructure" import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -11,8 +11,8 @@
 <body>
     <%
        	User user = (User)session.getAttribute("User");
-    	Category category = (Category)session.getAttribute("Category");
-    	String catName = category.getName();
+    	QuizStructure struct = (QuizStructure)session.getAttribute("Structure");
+    	String quizName = struct.getName();
 		
       
     %>
@@ -20,7 +20,7 @@
     <div class="login-form">
         <div class="form">
             <form class="quiz-form" action="GenerateNewQuizController" method="post">
-                <h1><%=catName%> Quiz</h1>
+                <h1><%=quizName%> Quiz</h1>
                 
                 <h3>Instructions</h3>
                 <p align="left">Total Questions: 10 Questions</p>
