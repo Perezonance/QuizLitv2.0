@@ -13,6 +13,9 @@ public class QuizStructure {
 			@Column(name="qs_id", unique=true, nullable=false)
 			private int id;
 			
+			@Column(name="qs_name", nullable=false, unique=true)
+			private String name;
+			
 			@Column(name="quiz_questioncount", nullable=false)
 			private int questionCount;
 			
@@ -26,7 +29,7 @@ public class QuizStructure {
 			private List<Quiz> quizzes;
 			
 			@ManyToOne()
-			@JoinColumn(name = "category_quizstructureid")
+			@JoinColumn(name = "qs_categoryId")
 			private Category structureCategory;
 
 			public int getId() {
@@ -76,6 +79,12 @@ public class QuizStructure {
 			public void setStructureCategory(Category structureCategory) {
 				this.structureCategory = structureCategory;
 			}
-	
-	
+			public String getName() {
+				return name;
+			}
+
+			public void setName(String name) {
+				this.name = name;
+			}
+			
 }

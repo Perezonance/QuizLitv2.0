@@ -9,12 +9,19 @@
 </head>
 <body>
 	<%
-		User user = (User)session.getAttribute("User");
+		User user = null;
+		try{
+			user = (User)session.getAttribute("User");
+			RequestDispatcher rd = request.getRequestDispatcher("CategoryTableController");
+			rd.include(request, response);
+		} catch(Exception e){
+			System.out.println("Failed to Display User Dashboard Quiz Table:");
+			e.printStackTrace();
+		}
 	%>
 	<h1>Welcome, <%=user.getfName() %>!</h1>
 	<%
-		RequestDispatcher rd = request.getRequestDispatcher("CategoryTableController");
-		rd.include(request, response);
+		
 	%>
 </body>
 </html>

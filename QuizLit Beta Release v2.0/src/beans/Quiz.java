@@ -14,20 +14,20 @@ public class Quiz {
 	private int id;
 
 	@ManyToOne
-	@JoinColumn(name="quiz_student_id")
+	@JoinColumn(name="quiz_student_id", nullable = false)
 	private User user;
 
-	@Column(name="quiz_right")
+	@Column(name="quiz_right", nullable=true)
 	private int rightAns;
 
-	@Column(name="quiz_wrong")
+	@Column(name="quiz_wrong", nullable=true)
 	private int wrongAns;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "quiz_structureId")
+	@JoinColumn(name = "quiz_structureId", nullable = false)
 	private QuizStructure quizStructure;
 		
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="questionCategory")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="questionCategory", cascade = CascadeType.ALL)
 	private List<Question> quizQuestions;
 
 

@@ -2,8 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,8 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Category;
-import service.CategoryService;
+
+import beans.QuizStructure;
+import service.StructureService;
 
 /**
  * Servlet implementation class CategoryTableController
@@ -63,16 +63,16 @@ public class CategoryTableController extends HttpServlet {
 		//All Output will be translated as html text
 		response.setContentType("text/html");
 		
-		CategoryService cs = new CategoryService();
-		List<Category> catList = cs.getCategoryList();
-		Iterator it = catList.iterator();
+		StructureService structServ = new StructureService();
+		List<QuizStructure> structList = structServ.getStructureList();
+		Iterator<QuizStructure> it = structList.iterator();
 		
 		PrintWriter out = response.getWriter();
 		out.println("<center>");
 		out.println("<table class=\"fixed_header\">");
 			out.println("<thead>");
 				out.println("<tr>");
-					out.println("<th>Quiz Category</th>");
+					out.println("<th>Quiz</th>");
 					out.println("<th>Description</th>");
 					out.println("<th>Take New Quiz</th>");
 				out.println("</tr>");
@@ -80,11 +80,11 @@ public class CategoryTableController extends HttpServlet {
 			out.println("<tbody>");
 		try {
 			while(it.hasNext()) {
-				Category cat = (Category)it.next();
+				QuizStructure stru = (QuizStructure)it.next();
 				out.println("<tr>");
-				out.println("<td>" + cat.getName() + "</td>");
-				out.println("<td>" + cat.getDescription() + "</td>");
-				out.println("<td><form action='UserCatSelectionController' method='post'><input type='submit' name = 'cat' value='" + cat.getName() + "'></form></td>");
+				out.println("<td>" + stru.getName() + "</td>");
+				out.println("<td>" + stru.getStructureCategory().getDescription() + "</td>");
+				out.println("<td><form action='QuizSelectionController' method='post'><input type='submit' name = 'struct' value='" + stru.getName() + "'></form></td>");
 				out.println("</tr>");
 			}
 		} catch (Exception e) {

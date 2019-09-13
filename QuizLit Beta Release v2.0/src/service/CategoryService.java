@@ -36,4 +36,14 @@ public class CategoryService {
 		}
 		return dbCategories;
 	}
+	
+	public Category getCategory(String catName) {
+		Category cat = null;
+		List<Category> cats = getCategoryList();
+		for (Category category : cats) {
+			if (category.getName().equals(catName))
+				cat = category;
+		}
+		return cat;
+	}
 }
