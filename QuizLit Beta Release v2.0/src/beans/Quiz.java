@@ -23,11 +23,11 @@ public class Quiz {
 	@Column(name="quiz_wrong", nullable=true)
 	private int wrongAns;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name = "quiz_structureId", nullable = false)
 	private QuizStructure quizStructure;
 		
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="questionCategory", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="questionCategory", cascade = CascadeType.ALL)
 	private List<Question> quizQuestions;
 
 

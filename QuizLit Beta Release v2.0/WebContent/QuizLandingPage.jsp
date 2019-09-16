@@ -18,7 +18,6 @@
        		user = (User)session.getAttribute("User");
         	QuizStructure struct = (QuizStructure)session.getAttribute("Structure");
         	
-        	
         	quizName = struct.getName();
     		numQuestions = struct.getQuestionCount();
     		time = struct.getTime();

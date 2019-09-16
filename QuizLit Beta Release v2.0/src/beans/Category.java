@@ -19,10 +19,10 @@ public class Category {
 	@Column(name="category_description", nullable=false)
 	private String description;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="structureCategory")
+	@OneToMany(mappedBy="structureCategory")
 	private List<QuizStructure> quizStructures;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="questionCategory")
+	@OneToMany(mappedBy="questionCategory")
 	private List<Question> categoryQuestions;
 
 	public int getId() {
@@ -70,11 +70,7 @@ public class Category {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", description=" + description + ", quizStructures="
-				+ quizStructures + ", questions=" + categoryQuestions + "]";
-	}
+	
 	
 	
 }

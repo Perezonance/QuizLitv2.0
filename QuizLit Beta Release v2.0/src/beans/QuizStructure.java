@@ -25,7 +25,7 @@ public class QuizStructure {
 			@Column(name="qs_accessCode", nullable=false, unique=true)
 			private String accessCode;
 			
-			@OneToMany(fetch = FetchType.LAZY, mappedBy="quizStructure")
+			@OneToMany(mappedBy="quizStructure")
 			private List<Quiz> quizzes;
 			
 			@ManyToOne()

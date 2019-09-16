@@ -27,13 +27,15 @@ public class Question {
 		@Column(name="question_wrong_answer3", nullable=false)
 		private String wrongAnswer3;
 		
-		@ManyToOne(fetch = FetchType.LAZY)
+		@ManyToOne()
 		@JoinColumn(name = "question_categoryId")
 		private Category questionCategory;
 		
+		/*
 		@ManyToOne(fetch = FetchType.LAZY)
 		@JoinColumn(name = "question_quizId")
 		private Category questionQuiz;
+		*/
 		
 		//Constructor
 		public Question() {

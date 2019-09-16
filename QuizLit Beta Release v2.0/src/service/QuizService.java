@@ -1,5 +1,6 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -21,12 +22,12 @@ public class QuizService {
 	
 	public List<Question> genQuestions(QuizStructure struct){
 		Session session = (Session) HibernateUtility.openSession();
-		List<Question> tempBank = null;
-		List<Question> qBank = null;
-		List<Question> dbQuestions = session.createQuery("FROM Question").list();
+		List<Question> tempBank = new ArrayList<Question>();
+		List<Question> qBank = new ArrayList<Question>();
+		List<Question> dbQuestions = (List<Question>)session.createQuery("FROM Question").list();
 		
 		for (Question question : dbQuestions) {
-			if(question.getQuestionCategory().equals(struct.getStructureCategory())) 
+			if(question.getQuestionCategory().getName().equals(struct.getStructureCategory().getName())) 
 				tempBank.add(question);
 		}
 		
@@ -35,8 +36,10 @@ public class QuizService {
 		int i = 0;
 		while(i < size) {
 			int num = (int)(Math.random() * size);
-			if(!qBank.contains(tempBank.get(num)))
+			if(!qBank.contains(tempBank.get(num))) {
 				qBank.add(tempBank.get(num));
+				i++;
+			}
 		}
 		session.close();
 		return qBank;

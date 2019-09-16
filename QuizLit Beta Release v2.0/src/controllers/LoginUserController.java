@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -51,8 +50,6 @@ public class LoginUserController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
-		
-		PrintWriter out = response.getWriter();
 		
 		String email = request.getParameter("email");
 		String pass = request.getParameter("password");

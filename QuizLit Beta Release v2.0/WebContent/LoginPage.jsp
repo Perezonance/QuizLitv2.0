@@ -21,7 +21,7 @@
 		%>
 		<div class="login-page">
 		  <div class="form">
-		    <form class="login-form" action="LoginUserController" method="get">
+		    <form class="login-form" action="LoginUserController" method="post">
 		   	  <div class="login-header">Welcome to Quiz Lit!</div>
 		      <input type="text" name = "email" placeholder="email" required/>
 		      <input type="password" name = "password" placeholder="password" required/>

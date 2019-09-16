@@ -1,12 +1,10 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,37 +13,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.*;
-import service.QuizService;
 
 /**
- * Servlet implementation class GenerateNewQuizController
+ * Servlet implementation class QuizTakingController
  */
-@WebServlet("/GenerateNewQuizController")
-public class GenerateNewQuizController extends HttpServlet {
+@WebServlet("/QuizTakingController")
+public class QuizTakingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private int questionCounter = 0;
-    private static int grade = 0;
+	private static int qCounter = 0;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GenerateNewQuizController() {
+    public QuizTakingController() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * @see Servlet#destroy()
-	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -60,25 +43,37 @@ public class GenerateNewQuizController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html");
-		
 		HttpSession session = request.getSession();
 		
-		QuizStructure structure = (QuizStructure)session.getAttribute("Structure");
-		User user = (User)session.getAttribute("User");
+		Quiz quiz = (Quiz)session.getAttribute("Quiz");
 		
-		Quiz quiz = new Quiz();
-		quiz.setUser(user);
-		quiz.setQuizStructure(structure);
+		if(quiz == null) {
+			System.out.println("Quiz is Null");
+		}
 		
-		List<Question> questions = (List<Question>) new QuizService().genQuestions(structure);
-		quiz.setQuizQuestions(questions);
+		List<Question> qBank = quiz.getQuizQuestions();
 		
-		new QuizService().commitQuiz(quiz);
-		session.setAttribute("Quiz", quiz);
+		List<Response> responses = new ArrayList<Response>();
 		
-		RequestDispatcher rd = request.getRequestDispatcher("QuizTakingController");
-		rd.forward(request, response);
+	
+		
+		
+		if(qCounter == qBank.size()) {
+			qCounter = 0;
+			
+			RequestDispatcher rd = request.getRequestDispatcher("QuizResultsPage.jsp");
+			rd.forward(request, response);
+		}else {
+			Question question = qBank.get(qCounter);
+			qCounter++;
+			
+			session.setAttribute("Question", question);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("QuizPage.jsp");
+			rd.forward(request, response);
+		}
+		
+		
 		
 	}
 
