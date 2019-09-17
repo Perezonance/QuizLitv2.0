@@ -26,4 +26,10 @@ public class Response {
 	public void setCorrect(boolean isCorrect) {
 		this.isCorrect = isCorrect;
 	}
+
+	@Override
+	public String toString() {
+		return "Response [question=" + question + ", isCorrect=" + isCorrect + "]";
+	}
+	
 }

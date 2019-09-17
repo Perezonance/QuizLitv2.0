@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>User Quiz Results Page</title>
+<title>Guest Results Page</title>
 </head>
 <body>
 	<% 
@@ -17,10 +17,11 @@
 		
 		DecimalFormat df = new DecimalFormat("##.##");
 		String grade = df.format((correct / numQuestions) * 100.00);
+		session.invalidate();
 		
 		
 	%>
 	<h1>You Scored: <%=grade%></h1>
-	<a href="UserDashboard.jsp"><button>Back to Dashboard</button></a>
+	<a href="GuestPage.jsp"><button>Back to Guest Access Page</button></a>
 </body>
 </html>

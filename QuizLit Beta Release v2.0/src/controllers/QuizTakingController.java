@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -21,6 +22,8 @@ import beans.*;
 public class QuizTakingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static int qCounter = 0;
+	private boolean[] answers;
+	private static int correctAns = 0;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -53,21 +56,47 @@ public class QuizTakingController extends HttpServlet {
 		
 		List<Question> qBank = quiz.getQuizQuestions();
 		
-		List<Response> responses = new ArrayList<Response>();
-		
+		if(qCounter == 0) {
+			answers = new boolean[qBank.size()];
+			correctAns = 0;
+		}else {
+			//Grade the previous response if it's not the first question
+			int selectedAns = Integer.parseInt(request.getParameter("question"));
+			
+			List<Response> res = (List<Response>)session.getAttribute("Responses");
+			if(res.get(selectedAns).isCorrect()) {
+				correctAns++;
+				System.out.println(correctAns + " Marks Right");
+			}
+		}
 	
+		
 		
 		
 		if(qCounter == qBank.size()) {
 			qCounter = 0;
 			
-			RequestDispatcher rd = request.getRequestDispatcher("QuizResultsPage.jsp");
+			session.setAttribute("CorrectAnswers", correctAns);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("QuizResultsController");
 			rd.forward(request, response);
 		}else {
 			Question question = qBank.get(qCounter);
-			qCounter++;
+			
+			
+			List<Response> responses = new ArrayList<Response>();
+			responses.add(new Response(question.getCorrectAnswer(), true));
+			responses.add(new Response(question.getWrongAnswer1(), false));
+			responses.add(new Response(question.getWrongAnswer2(), false));
+			responses.add(new Response(question.getWrongAnswer3(), false));
+			
+			Collections.shuffle(responses);
 			
 			session.setAttribute("Question", question);
+			session.setAttribute("Responses", responses);
+			session.setAttribute("qCount", (qCounter + 1));
+			
+			qCounter++;
 			
 			RequestDispatcher rd = request.getRequestDispatcher("QuizPage.jsp");
 			rd.forward(request, response);
