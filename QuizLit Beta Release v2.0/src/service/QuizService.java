@@ -34,7 +34,7 @@ public class QuizService {
 		int questionCount = struct.getQuestionCount();
 		int size = tempBank.size();
 		int i = 0;
-		while(i < size) {
+		while(i < questionCount) {
 			int num = (int)(Math.random() * size);
 			if(!qBank.contains(tempBank.get(num))) {
 				qBank.add(tempBank.get(num));

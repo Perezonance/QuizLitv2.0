@@ -66,7 +66,6 @@ public class QuizTakingController extends HttpServlet {
 			List<Response> res = (List<Response>)session.getAttribute("Responses");
 			if(res.get(selectedAns).isCorrect()) {
 				correctAns++;
-				System.out.println(correctAns + " Marks Right");
 			}
 		}
 	

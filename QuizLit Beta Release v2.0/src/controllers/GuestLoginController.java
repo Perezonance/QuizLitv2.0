@@ -52,7 +52,7 @@ public class GuestLoginController extends HttpServlet {
         LoginService ls = new LoginService();
         StructureService ss = new StructureService();
         
-        User user = ls.getUserByEmail(email);
+        User user = ls.getUserFromEmail(email);
         QuizStructure structure = ss.getStructureFromCode(accessCode);
         
         

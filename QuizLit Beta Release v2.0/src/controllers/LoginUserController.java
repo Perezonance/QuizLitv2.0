@@ -48,31 +48,31 @@ public class LoginUserController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.setContentType("text/html");
 		
 		String email = request.getParameter("email");
 		String pass = request.getParameter("password");
 		
 		LoginService ls = new LoginService();
-
-		if(ls.authenticateUser(email, pass)) {
-			User user = ls.getUserByEmail(email);
-			if(ls.isUserAdmin(user)) {
-				HttpSession session = request.getSession();
-				session.setAttribute("LoggedIn", true);
+		HttpSession session = request.getSession();
+		User user = ls.getUserFromEmail(email);
+		
+		if(ls.getUserFromEmail(email) != null) {
+			if(ls.isAdmin(user)) {
+				
 				session.setAttribute("User", user);
+				
 				RequestDispatcher rd = request.getRequestDispatcher("AdminDashboard.jsp");
 				rd.forward(request, response);
 			}else {
-				HttpSession session = request.getSession();
-				session.setAttribute("LoggedIn", true);
+				
 				session.setAttribute("User", user);
+				
 				RequestDispatcher rd = request.getRequestDispatcher("UserDashboard.jsp");
 				rd.forward(request, response);
 			}
 		}else {
 			request.setAttribute("invalidLogin", true);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("LoginPage.jsp");
 			rd.forward(request, response);
 		}

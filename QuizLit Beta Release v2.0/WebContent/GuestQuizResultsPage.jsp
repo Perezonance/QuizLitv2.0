@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Guest Results Page</title>
+<link rel="stylesheet" type="text/css" href="css/ResultStyling.css" />
 </head>
 <body>
 	<% 
@@ -12,8 +13,8 @@
 		
 		QuizStructure struct  = (QuizStructure)session.getAttribute("Structure");
 		double numQuestions = Double.valueOf(struct.getQuestionCount());
-		System.out.println(numQuestions);
-		System.out.println(numQuestions);
+		
+		String code = struct.getAccessCode();
 		
 		DecimalFormat df = new DecimalFormat("##.##");
 		String grade = df.format((correct / numQuestions) * 100.00);
@@ -21,7 +22,23 @@
 		
 		
 	%>
-	<h1>You Scored: <%=grade%></h1>
-	<a href="GuestPage.jsp"><button>Back to Guest Access Page</button></a>
+	<div class="outer-container">
+		<div class="inner-container">
+			<h1><%=struct.getName()%> Results</h1>
+			<h2>Guest Access</h2>
+			<div class="gradeContainer">
+				<h2>You Scored: <%=grade%>% <%=code%></h2>
+			</div>
+			<div class="result-container">
+				
+			</div>
+			<form method="post" action="GuestPage.jsp"><button type="submit">Back to Guest Access</button></form>
+			<br>
+			<form method="post" action="EmailResultsController">
+				<input type="email" placeholder="email" required>
+				<button type="submit">Email My Results!</button>
+			</form>
+		</div>
+	</div>
 </body>
 </html>
