@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <!--  <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/quiz_lit2.0</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">3.141592Map97</property>
+        <property name="hibernate.connection.pool_size">5</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <mapping class="beans.User"/>
+        <mapping class="beans.Quiz"/>
+        <mapping class="beans.QuizStructure"/>
+        <mapping class="beans.Question"/>
+        <mapping class="beans.Category"/>
+        
+    </session-factory>-->
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">quiz-lit-db-1.cvzmzdmfem66.us-east-2.rds.amazonaws.com</property>
+        <property name="hibernate.connection.username">admin</property>
+        <property name="hibernate.connection.password">password</property>
+        <property name="hibernate.connection.pool_size">100</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <mapping class="beans.User"/>
+        <mapping class="beans.Quiz"/>
+        <mapping class="beans.QuizStructure"/>
+        <mapping class="beans.Question"/>
+        <mapping class="beans.Category"/>
+        
+    </session-factory>
+</hibernate-configuration>
